@@ -1,6 +1,10 @@
 # SpringBoot4-OrderProcessing-Kafka-SAGA
 
+# Because of the limited resources, I am creating all the services in one project
+# Please create different microservices for each service below and the related database.
+# Clear responsibilities, APIs, and database design per service.
 <br/>
+
 1 - UserService<br/>
 2 - OrderService<br/>
 3 - ProductService<br/>
@@ -19,6 +23,9 @@
 | PaymentService	          | payment_db	| Payments
 | ShippingService	         | shipping_db	| Delivery
 | EmailNotificationService |	notification_db	| Notifications
+
+<br/><br/>
+<img src="src/main/resources/static/Diagram.jpg" alt="Description" width="800">
 
 <br/><br/>
 # SpringBoot4-Dashboard-Inventory-Management-API
