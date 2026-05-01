@@ -21,7 +21,7 @@ public class InventoryController {
 
     @PostMapping("/reserve")
     public InventoryResponse reserve(@RequestParam Long productId,
-                             @RequestParam int quantity) {
+                                     @RequestParam int quantity) {
         return service.reserve(productId, quantity);
     }
 }

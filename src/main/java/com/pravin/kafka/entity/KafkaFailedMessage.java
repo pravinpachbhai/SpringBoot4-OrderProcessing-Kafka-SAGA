@@ -19,6 +19,8 @@ public class KafkaFailedMessage {
     private Long id;
 
     private String topic;
+    private Integer partitionId;
+    private Long offsetVaue;
 
     @Lob
     private String message;
