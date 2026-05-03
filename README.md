@@ -3,6 +3,12 @@
 # Because of the limited resources, I am creating all the services in one project
 # Please create different microservices for each service below and the related database.
 # Clear responsibilities, APIs, and database design per service.
+
+# Download the kafka -  kafka_2.13-4.2.0
+# TO START KAFKA -   bin/kafka-server-start.sh config/server.properties
+# Stop Kafka with Ctrl + C
+# TO CHECK ALL TOPIC - bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
+
 <br/>
 
 1 - UserService<br/>

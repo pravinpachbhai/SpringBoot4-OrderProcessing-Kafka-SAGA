@@ -20,7 +20,7 @@ public class KafkaFailedMessage {
 
     private String topic;
     private Integer partitionId;
-    private Long offsetVaue;
+    private Long offsetValue;
 
     @Lob
     private String message;

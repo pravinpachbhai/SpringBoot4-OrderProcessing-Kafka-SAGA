@@ -14,7 +14,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-@DependsOn("broker")
 public class NotificationService {
     private static final Logger log = LoggerFactory.getLogger(NotificationService.class);
 

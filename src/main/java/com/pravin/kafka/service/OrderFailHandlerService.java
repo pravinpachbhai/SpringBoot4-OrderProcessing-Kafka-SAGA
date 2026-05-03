@@ -20,7 +20,6 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
 @Service
-@DependsOn("broker")
 public class OrderFailHandlerService {
     private static final Logger log = LoggerFactory.getLogger(OrderFailHandlerService.class);
     private final OrderRepository orderRepository;
@@ -75,7 +74,7 @@ public class OrderFailHandlerService {
             KafkaFailedMessage failed = new KafkaFailedMessage();
             failed.setTopic(topic);
             failed.setPartitionId(partition);
-            failed.setOffsetVaue(offset);
+            failed.setOffsetValue(offset);
             failed.setMessage(objectMapper.writeValueAsString(event));
             String error = record.headers().lastHeader("kafka_dlt-exception-message") != null
                     ? new String(record.headers()

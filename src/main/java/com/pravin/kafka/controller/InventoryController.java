@@ -2,10 +2,14 @@ package com.pravin.kafka.controller;
 
 import com.pravin.kafka.dto.InventoryResponse;
 import com.pravin.kafka.service.InventoryService;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/inventory")
+@Validated
 public class InventoryController {
 
     private final InventoryService service;
@@ -20,8 +24,8 @@ public class InventoryController {
     }
 
     @PostMapping("/reserve")
-    public InventoryResponse reserve(@RequestParam Long productId,
-                                     @RequestParam int quantity) {
+    public InventoryResponse reserve(@RequestParam @NotNull Long productId,
+                                     @RequestParam @NotNull @Positive Integer quantity) {
         return service.reserve(productId, quantity);
     }
 }

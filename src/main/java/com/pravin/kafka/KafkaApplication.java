@@ -11,6 +11,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  http://localhost:8080/actuator/circuitbreakers
  http://localhost:8080/actuator/health
 
+TO START KAFKA -   bin/kafka-server-start.sh config/server.properties
+Stop Kafka with Ctrl + C
+TO CHECK - bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
+
  Because of the limited resources I am creating all the service in one project
  Please create one microservice for each service
  1 - EmailNotificationService

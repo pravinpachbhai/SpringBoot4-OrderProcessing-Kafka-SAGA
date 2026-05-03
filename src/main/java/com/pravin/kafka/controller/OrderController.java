@@ -3,12 +3,15 @@ package com.pravin.kafka.controller;
 import com.pravin.kafka.dto.OrderRequest;
 import com.pravin.kafka.dto.OrderResponse;
 import com.pravin.kafka.service.OrderService;
+import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/orders")
+@Validated
 public class OrderController {
 
     private final OrderService service;
@@ -18,7 +21,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public OrderResponse create(@RequestBody OrderRequest order) {
+    public OrderResponse create(@Valid @RequestBody OrderRequest order) {
         return service.create(order);
     }
 

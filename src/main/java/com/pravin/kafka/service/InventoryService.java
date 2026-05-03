@@ -16,7 +16,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-@DependsOn("broker")
 public class InventoryService {
     private static final Logger log = LoggerFactory.getLogger(InventoryService.class);
     private final InventoryRepository repo;

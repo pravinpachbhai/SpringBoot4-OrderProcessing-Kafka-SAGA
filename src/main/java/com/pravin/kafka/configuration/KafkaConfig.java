@@ -13,14 +13,7 @@ import org.springframework.util.backoff.FixedBackOff;
 @Configuration
 public class KafkaConfig {
 
-
     @Bean
-    public EmbeddedKafkaBroker broker() {
-        return new EmbeddedKafkaKraftBroker(1, 1).brokerListProperty("spring.kafka.bootstrap-servers");
-    }
-
-    @Bean
-    @DependsOn("broker")
     public DefaultErrorHandler errorHandler(KafkaTemplate<Object, Object> kafkaTemplate) {
 
         DeadLetterPublishingRecoverer recoverer =
