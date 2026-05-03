@@ -4,9 +4,13 @@ CREATE TABLE kafka_failed_messages (
                                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
                                        topic VARCHAR(255),
                                        message JSON,
+                                       message_key VARCHAR(255),
                                        partition_id INT,
                                        offset_value BIGINT,
                                        error TEXT,
+                                       retryCount INT,
+                                       status VARCHAR(50),
+                                       lastRetry_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

@@ -21,7 +21,11 @@ public class KafkaFailedMessage {
     private String topic;
     private Integer partitionId;
     private Long offsetValue;
-
+    private int retryCount;
+    @Enumerated(EnumType.STRING)
+    private FailedMessageStatus status; // FAILED, RETRIED, SUCCESS
+    private LocalDateTime lastRetryAt;
+    private String messageKey;
     @Lob
     private String message;
 

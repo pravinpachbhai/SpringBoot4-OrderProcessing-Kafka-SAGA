@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,9 +31,10 @@ public class ShippingService {
     }
 
     @KafkaListener(topics = "payment-success", groupId = "shipping-group")
-    public void ship(PaymentSuccessEvent event) {
+    public void ship(PaymentSuccessEvent event,
+          @Header(org.springframework.kafka.support.KafkaHeaders.RECEIVED_KEY) String key) {
         log.info("payment-success event received in shipping service for shipment.");
-        kafkaTemplate.send("shipment-created", new ShipmentCreatedEvent(event.orderId()));
+        kafkaTemplate.send("shipment-created", key, new ShipmentCreatedEvent(event.orderId()));
         log.info("Event publish for shipment-created.");
     }
 

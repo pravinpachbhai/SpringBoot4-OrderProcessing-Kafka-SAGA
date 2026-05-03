@@ -29,6 +29,7 @@ TO CHECK - bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
 
 
 @SpringBootApplication
+@EnableScheduling
 public class KafkaApplication {
 
 	public static void main(String[] args) {

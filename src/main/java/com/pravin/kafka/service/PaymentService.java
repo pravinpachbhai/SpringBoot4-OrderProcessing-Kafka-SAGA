@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,17 +31,18 @@ public class PaymentService {
     }
 
     @KafkaListener(topics = "inventory-reserved", groupId = "payment-group")
-    public void process(InventoryReservedEvent event) {
+    public void process(InventoryReservedEvent event,
+                        @Header(org.springframework.kafka.support.KafkaHeaders.RECEIVED_KEY) String key) {
         log.info("inventory-reserved event received in payment service to process payment.");
         try {
             // simulate payment success
-            kafkaTemplate.send("payment-success", new PaymentSuccessEvent(event.orderId()));
+            kafkaTemplate.send("payment-success", key, new PaymentSuccessEvent(event.orderId()));
             log.info("Event publish for payment-success.");
 
         } catch (Exception e) {
-            //kafkaTemplate.send("payment-failed", new PaymentFailedEvent(event.orderId(), e.getMessage()));
-            //log.error("Event publish for payment-failed.", e);
-            throw new RuntimeException("Retry this message");
+            kafkaTemplate.send("payment-failed", key, new PaymentFailedEvent(event.orderId(), e.getMessage()));
+            log.error("Event publish for payment-failed.", e);
+            //throw new RuntimeException("Retry this message");
         }
     }
 
@@ -48,5 +50,9 @@ public class PaymentService {
         Payment payment = dataMapper.toEntity(paymentRequest);
         payment.setStatus(PaymentStatus.SUCCESS);
         return dataMapper.toResponse(repo.save(payment));
+    }
+
+    public void refundPayment(Long id) {
+
     }
 }

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,17 +20,16 @@ public class NotificationService {
 
     private final NotificationRepository repo;
     private final DataMapper dataMapper;
-    private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    public NotificationService(NotificationRepository repo, DataMapper dataMapper, KafkaTemplate<String, Object> kafkaTemplate) {
+    public NotificationService(NotificationRepository repo, DataMapper dataMapper) {
         this.repo = repo;
         this.dataMapper = dataMapper;
-        this.kafkaTemplate = kafkaTemplate;
     }
 
     @KafkaListener(topics = "shipment-created", groupId = "notification-group")
-    public void notify(ShipmentCreatedEvent event) {
-        log.info("shipment-created event received in notification service to inform customer.");
+    public void notify(ShipmentCreatedEvent event,
+                       @Header(org.springframework.kafka.support.KafkaHeaders.RECEIVED_KEY) String key) {
+        log.info("shipment-created event received in notification service to inform customer for Order Id." + key);
         log.info("Email sent for order: " + event.orderId());
     }
 

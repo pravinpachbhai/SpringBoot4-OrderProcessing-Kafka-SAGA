@@ -3,6 +3,7 @@ package com.pravin.kafka.service;
 import com.pravin.kafka.component.DataMapper;
 import com.pravin.kafka.dto.InventoryResponse;
 import com.pravin.kafka.entity.Inventory;
+import com.pravin.kafka.event.InventoryFailedEvent;
 import com.pravin.kafka.event.InventoryReservedEvent;
 import com.pravin.kafka.event.OrderCreatedEvent;
 import com.pravin.kafka.exception.InsufficientStockException;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,18 +31,19 @@ public class InventoryService {
     }
 
     @KafkaListener(topics = "order-created", groupId = "inventory-group")
-    public void handle(OrderCreatedEvent event) {
+    public void handle(OrderCreatedEvent event,
+                       @Header(org.springframework.kafka.support.KafkaHeaders.RECEIVED_KEY) String key) {
         log.info("order-created event received in inventory service to reserve the qty.");
         try {
             event.items().forEach(item -> reserve(item.productId(), item.quantity()));
 
-            kafkaTemplate.send("inventory-reserved", new InventoryReservedEvent(event.orderId()));
+            kafkaTemplate.send("inventory-reserved", key, new InventoryReservedEvent(event.orderId()));
             log.info("Event publish for inventory-reserved.");
 
         } catch (Exception e) {
-            //kafkaTemplate.send("inventory-failed", new InventoryFailedEvent(event.orderId(), e.getMessage()));
-            //log.error("Event publish for inventory-failed.", e);
-            throw new RuntimeException("Retry this message");
+            kafkaTemplate.send("inventory-failed", key,new InventoryFailedEvent(event.orderId(), e.getMessage()));
+            log.error("Event publish for inventory-failed.", e);
+            //throw new RuntimeException("Retry this message");
         }
     }
 

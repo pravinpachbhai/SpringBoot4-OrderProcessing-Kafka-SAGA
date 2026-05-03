@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class OrderService {
@@ -52,6 +53,7 @@ public class OrderService {
         order.setTotalAmount(totalAmount);
         Order saved = orderRepository.save(order);
         log.info("Order created.");
+
         // publish event
         OrderCreatedEvent event = new OrderCreatedEvent(
                 saved.getId(),
