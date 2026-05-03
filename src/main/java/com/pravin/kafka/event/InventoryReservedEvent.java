@@ -1,3 +1,4 @@
 package com.pravin.kafka.event;
 
-public record InventoryReservedEvent(Long orderId) {}
+public record InventoryReservedEvent(Long orderId) {
+}

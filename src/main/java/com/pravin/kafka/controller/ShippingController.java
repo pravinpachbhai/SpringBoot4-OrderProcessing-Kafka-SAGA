@@ -4,6 +4,7 @@ import com.pravin.kafka.dto.ShipmentRequest;
 import com.pravin.kafka.dto.ShipmentResponse;
 import com.pravin.kafka.service.ShippingService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,7 @@ public class ShippingController {
     }
 
     @PostMapping
-    public ShipmentResponse create(@Valid  @RequestBody ShipmentRequest shipment) {
-        return service.create(shipment);
+    public ResponseEntity<ShipmentResponse> create(@Valid  @RequestBody ShipmentRequest shipment) {
+        return ResponseEntity.ok(service.create(shipment));
     }
 }

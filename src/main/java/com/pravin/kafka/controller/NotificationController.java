@@ -4,6 +4,7 @@ import com.pravin.kafka.dto.NotificationRequest;
 import com.pravin.kafka.dto.NotificationResponse;
 import com.pravin.kafka.service.NotificationService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,7 @@ public class NotificationController {
     }
 
     @PostMapping
-    public NotificationResponse send(@Valid @RequestBody NotificationRequest notification) {
-        return service.send(notification);
+    public ResponseEntity<NotificationResponse> send(@Valid @RequestBody NotificationRequest notification) {
+        return ResponseEntity.ok(service.send(notification));
     }
 }

@@ -1,3 +1,4 @@
 package com.pravin.kafka.event;
 
-public record ShipmentCreatedEvent(Long orderId) {}
+public record ShipmentCreatedEvent(Long orderId) {
+}

@@ -4,6 +4,7 @@ import com.pravin.kafka.dto.OrderRequest;
 import com.pravin.kafka.dto.OrderResponse;
 import com.pravin.kafka.service.OrderService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,12 +27,12 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public OrderResponse get(@PathVariable Long id) {
-        return service.get(id);
+    public ResponseEntity<OrderResponse> get(@PathVariable Long id) {
+        return ResponseEntity.ok(service.get(id));
     }
 
     @GetMapping("/user/{userId}")
-    public List<OrderResponse> getByUser(@PathVariable Long userId) {
-        return service.getByUser(userId);
+    public ResponseEntity<List<OrderResponse>> getByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(service.getByUser(userId));
     }
 }

@@ -4,6 +4,7 @@ import com.pravin.kafka.dto.InventoryResponse;
 import com.pravin.kafka.service.InventoryService;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +20,13 @@ public class InventoryController {
     }
 
     @GetMapping("/{productId}")
-    public InventoryResponse get(@PathVariable Long productId) {
-        return service.get(productId);
+    public ResponseEntity<InventoryResponse> get(@PathVariable Long productId) {
+        return ResponseEntity.ok(service.get(productId));
     }
 
     @PostMapping("/reserve")
-    public InventoryResponse reserve(@RequestParam @NotNull Long productId,
+    public ResponseEntity<InventoryResponse> reserve(@RequestParam @NotNull Long productId,
                                      @RequestParam @NotNull @Positive Integer quantity) {
-        return service.reserve(productId, quantity);
+        return ResponseEntity.ok(service.reserve(productId, quantity));
     }
 }

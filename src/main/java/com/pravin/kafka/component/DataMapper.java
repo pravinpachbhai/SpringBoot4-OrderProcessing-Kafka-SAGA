@@ -53,4 +53,8 @@ public interface DataMapper {
 
     // ===== PRODUCT =====
     ProductResponse toResponse(Product product);
+
+    // ===== DLQ Messages =====
+
+    KafkaFailedMessageResponse toResponse(KafkaFailedMessage kafkaFailedMessage);
 }

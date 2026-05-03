@@ -1,3 +1,4 @@
 package com.pravin.kafka.event;
 
-public record PaymentFailedEvent(Long orderId, String reason) {}
+public record PaymentFailedEvent(Long orderId, String reason) {
+}

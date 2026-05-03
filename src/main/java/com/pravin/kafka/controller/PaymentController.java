@@ -4,6 +4,7 @@ import com.pravin.kafka.dto.PaymentRequest;
 import com.pravin.kafka.dto.PaymentResponse;
 import com.pravin.kafka.service.PaymentService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,7 @@ public class PaymentController {
     }
 
     @PostMapping
-    public PaymentResponse process(@Valid @RequestBody PaymentRequest payment) {
-        return service.process(payment);
+    public ResponseEntity<PaymentResponse> process(@Valid @RequestBody PaymentRequest payment) {
+        return ResponseEntity.ok(service.process(payment));
     }
 }
