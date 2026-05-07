@@ -5,7 +5,15 @@
 # Clear responsibilities, APIs, and database design per service.
 
 # Download the kafka -  kafka_2.13-4.2.0
-# TO START KAFKA -   bin/kafka-server-start.sh config/server.properties
+# Step 1: Generate Cluster ID -   bin/kafka-storage.sh random-uuid
+# Step 2: Format Storage - bin/kafka-storage.sh format --standalone -t ADD_YOUR_CLUSTER_ID -c config/server.properties
+# Step 3: Start Kafka - bin/kafka-server-start.sh config/server.properties
+
+# OR
+
+# Start with Daemon Mode
+# bin/kafka-server-start.sh -daemon config/server.properties
+
 # Stop Kafka with Ctrl + C
 # TO CHECK ALL TOPIC - bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
 
