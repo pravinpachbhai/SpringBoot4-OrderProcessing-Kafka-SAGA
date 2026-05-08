@@ -17,6 +17,12 @@
 # Stop Kafka with Ctrl + C
 # TO CHECK ALL TOPIC - bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
 
+# bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic order.created
+# bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic inventory.reserved
+# bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic payment.completed
+# bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic shipment.created
+
+
 <br/>
 
 1 - UserService<br/>
