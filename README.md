@@ -1,4 +1,5 @@
 # SpringBoot4-OrderProcessing-Kafka-SAGA
+# Java 25, SpringBoot4 and Spring Framework 7.x
 
 # Because of the limited resources, I am creating all the services in one project
 # Please create different microservices for each service below and the related database.
